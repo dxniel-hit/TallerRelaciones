@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import empresa.Categoria;
+import empresa.Cliente;
 import empresa.Directivo;
 import empresa.Empleado;
 import empresa.Empresa;
@@ -33,16 +34,19 @@ public class Test {
 
         // Hacer un método que imprima el salario bruto de los empleados. Se debe
         // manipular la lista de personas de la clase Empresa.
-        Empresa empresa = new Empresa();
+
+        Empresa empresa = new Empresa("Empresa UQ");
         ArrayList<Empleado> listaSubOrdinados = new ArrayList<Empleado>();
 
         Persona empleado1 = new Empleado("Daniel", 12, 50000.0);
         Persona empleado2 = new Empleado("Jairo", 12, 55000.0);
+        Persona cliente1 = new Cliente("Musso", 18, "3152281708");
 
         listaSubOrdinados.add((Empleado) empleado1);
 
         empresa.getListaPersonas().add(empleado1);
         empresa.getListaPersonas().add(empleado2);
+        empresa.getListaPersonas().add(cliente1);
 
         Directivo directivo = new Directivo("Ramón", 13, 54000.00, Categoria.GERENTE, listaSubOrdinados);
 
