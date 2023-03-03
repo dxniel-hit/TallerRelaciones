@@ -1,10 +1,9 @@
-package test;
-
+package Banco.test;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import CuentaBancaria.Banco;
-import CuentaBancaria.Cuenta;
+import Banco.CuentaBancaria.Banco;
+import Banco.CuentaBancaria.Cuenta;
 
 public class Test {
 

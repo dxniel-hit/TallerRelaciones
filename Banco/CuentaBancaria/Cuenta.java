@@ -1,4 +1,4 @@
-package CuentaBancaria;
+package Banco.CuentaBancaria;
 
 import javax.swing.JOptionPane;
 

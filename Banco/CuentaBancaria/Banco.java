@@ -1,4 +1,4 @@
-package CuentaBancaria;
+package Banco.CuentaBancaria;
 
 import java.util.*;
 
@@ -77,6 +77,8 @@ public class Banco {
      */
     public boolean compararSaldos(Cuenta cuentaAComparar) {
 
+
+        //Pregunta por un saldo a comparar dado por el usuario.
         Cuenta cuentaPrimaria = new Cuenta("Daniel", "Correa", "1111", "Ahorros", preguntarSaldo());
 
         if (cuentaPrimaria.getSaldoCuenta() < cuentaAComparar.getSaldoCuenta())
