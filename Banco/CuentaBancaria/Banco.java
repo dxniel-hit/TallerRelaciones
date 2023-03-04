@@ -79,7 +79,7 @@ public class Banco {
 
 
         //Pregunta por un saldo a comparar dado por el usuario.
-        Cuenta cuentaPrimaria = new Cuenta("Daniel", "Correa", "1111", "Ahorros", preguntarSaldo());
+        Cuenta cuentaPrimaria = new Cuenta("Daniel", "Correa", "1111", "Ahorros", preguntarSaldo("Saldo que desea comparar: "));
 
         if (cuentaPrimaria.getSaldoCuenta() < cuentaAComparar.getSaldoCuenta())
             return false;
@@ -87,7 +87,7 @@ public class Banco {
     }
 
     /**
-     * Función para transferir dinero.
+     * Función para transferir dinero. Crea dos parámetros Double con getSaldoCuenta y luego los compara.
      * 
      * @param cuentaDestino
      * @param cuentaOrigen
@@ -110,5 +110,5 @@ public class Banco {
 
 
     //Funciones para hacer que el código no se vea tan feo.
-    public Double preguntarSaldo(){return Double.parseDouble(JOptionPane.showInputDialog(null, "Saldo que desea comparar: "));}
+    public Double preguntarSaldo(String mensaje){return Double.parseDouble(JOptionPane.showInputDialog(null, mensaje));}
 }
