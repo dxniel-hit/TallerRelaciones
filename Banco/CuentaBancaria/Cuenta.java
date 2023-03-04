@@ -13,12 +13,11 @@ public class Cuenta {
     public Cuenta() {
     }
 
-    public Cuenta(String nombresTitular, String apellidosTitular, String numeroCuentaBanco, String tipoDeCuenta,
+    public Cuenta(String nombresTitular, String apellidosTitular, String numeroCuentaBanco, CategoriaCuenta categoria,
             Double saldoCuenta) {
         this.nombresTitular = nombresTitular;
         this.apellidosTitular = apellidosTitular;
         this.numeroCuentaBanco = numeroCuentaBanco;
-        this.tipoDeCuenta = tipoDeCuenta;
         this.saldoCuenta = saldoCuenta;
     }
 
@@ -71,19 +70,15 @@ public class Cuenta {
      * @param tipoDeCuenta
      * @param saldoCuenta
      */
-    public void imprimirAtributosEnPantalla(String nombresTitular, String apellidosTitular, String numeroCuentaBanco,
-            String tipoDeCuenta,
-            Double saldoCuenta) {
-        JOptionPane.showMessageDialog(null, String.format(
-                "El estado actual de su cuenta es: \nNombres del titular: %s\nApellidos del titular: %s\n Número de la cuenta bancaria: %s\nTipo de cuenta: %s\nSaldo de la cuenta: %f",
-                nombresTitular, apellidosTitular, numeroCuentaBanco, tipoDeCuenta, saldoCuenta));
+    public void imprimirAtributosEnPantalla(Cuenta cuenta) {
+        JOptionPane.showMessageDialog(null, "Detalles de la cuenta: \n" + cuenta.toString());
     }
 
     /**
      * Consulta el saldo de una cuenta.
      */
-    public void consultarSaldo() {
-        JOptionPane.showMessageDialog(null, String.format("El saldo de su cuenta es: %f", this.saldoCuenta));
+    public void consultarSaldo(Cuenta cuenta) {
+        JOptionPane.showMessageDialog(null, String.format("El saldo de su cuenta es: %f", cuenta.getSaldoCuenta()));
     }
 
     /**
@@ -91,8 +86,8 @@ public class Cuenta {
      * 
      * @param saldoAniadir
      */
-    public void aniadirSaldo(int saldoAniadir) {
-        setSaldoCuenta(saldoCuenta + saldoAniadir);
+    public void aniadirSaldo(Cuenta cuentaA, Double saldoAniadir) {
+        cuentaA.setSaldoCuenta(cuentaA.getSaldoCuenta()+saldoAniadir);
     }
 
     /**
@@ -101,13 +96,17 @@ public class Cuenta {
      * 
      * @param saldoSacado
      */
-    public void sacarSaldo(int saldoSacado) {
-        if (saldoSacado > saldoCuenta)
+    public void sacarSaldo(Double saldoSacado) {
+        if (saldoSacado > this.getSaldoCuenta())
             JOptionPane.showMessageDialog(null, "Error: No puede sacar más saldo del que tiene disponible.");
         else {
             setSaldoCuenta(saldoCuenta - saldoSacado);
             JOptionPane.showMessageDialog(null, "Saldo retirado con éxito.");
         }
     }
+
+    /*
+     * Función rápida para salirme de un gallo
+     */
 
 }

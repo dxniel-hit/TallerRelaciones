@@ -77,9 +77,9 @@ public class Banco {
      */
     public boolean compararSaldos(Cuenta cuentaAComparar) {
 
-
-        //Pregunta por un saldo a comparar dado por el usuario.
-        Cuenta cuentaPrimaria = new Cuenta("Daniel", "Correa", "1111", "Ahorros", preguntarSaldo("Saldo que desea comparar: "));
+        // Pregunta por un saldo a comparar dado por el usuario.
+        Cuenta cuentaPrimaria = new Cuenta("Daniel", "Correa", "0000", CategoriaCuenta.SALDO,
+                preguntarSaldo("Saldo que desea comparar: "));
 
         if (cuentaPrimaria.getSaldoCuenta() < cuentaAComparar.getSaldoCuenta())
             return false;
@@ -87,7 +87,8 @@ public class Banco {
     }
 
     /**
-     * Función para transferir dinero. Crea dos parámetros Double con getSaldoCuenta y luego los compara.
+     * Función para transferir dinero. Crea dos parámetros Double con getSaldoCuenta
+     * y luego los compara.
      * 
      * @param cuentaDestino
      * @param cuentaOrigen
@@ -97,7 +98,7 @@ public class Banco {
 
         Double dineroDestino = cuentaDestino.getSaldoCuenta();
         Double dineroOrigen = cuentaDestino.getSaldoCuenta();
-
+        
         if (dineroOrigen >= cantidadTransferida) {
             cuentaOrigen.setSaldoCuenta(dineroOrigen - cantidadTransferida);
             cuentaDestino.setSaldoCuenta(dineroDestino + cantidadTransferida);
@@ -108,7 +109,8 @@ public class Banco {
         }
     }
 
-
-    //Funciones para hacer que el código no se vea tan feo.
-    public Double preguntarSaldo(String mensaje){return Double.parseDouble(JOptionPane.showInputDialog(null, mensaje));}
+    // Función para hacer que el código no se vea tan feo.
+    public static Double preguntarSaldo(String mensaje) {
+        return Double.parseDouble(JOptionPane.showInputDialog(null, mensaje));
+    }
 }

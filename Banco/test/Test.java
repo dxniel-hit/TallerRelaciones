@@ -1,35 +1,63 @@
 package Banco.test;
-import java.util.ArrayList;
-import java.util.Arrays;
+
+import java.util.*;
+
+import javax.swing.JOptionPane;
 
 import Banco.CuentaBancaria.Banco;
+import Banco.CuentaBancaria.CategoriaCuenta;
 import Banco.CuentaBancaria.Cuenta;
 
 public class Test {
 
     public static void main(String[] args) {
 
-        Cuenta cuenta1 = new Cuenta("Daniel", "Correa", "1", "Ahorros", 50000.0);
-        Cuenta cuenta2 = new Cuenta("Daniel", "Correa", "2", "Ahorros", 55000.0);
-        Cuenta cuenta3 = new Cuenta("Daniel", "Correa", "3", "Ahorros", 60000.0);
+        // Inicializo algunas variables para probar las funciones. Puede cambiar los
+        // saldos si desea.
+        Cuenta cuentaPrincipal = new Cuenta();
+        Cuenta cuenta1 = new Cuenta("Daniel", "Correa", "1", CategoriaCuenta.AHORRO, 50000.0);
+        Cuenta cuenta2 = new Cuenta("Daniel", "Correa", "2", CategoriaCuenta.SALDO, 55000.0);
+        Cuenta cuenta3 = new Cuenta("Daniel", "Correa", "3", CategoriaCuenta.SALDO, 60000.0);
 
         ArrayList<Cuenta> listaCuentas = new ArrayList<Cuenta>(Arrays.asList(cuenta1, cuenta2, cuenta3));
 
         Banco banco = new Banco("Banco UQ", listaCuentas);
 
+        /**
+         * Prueba de la función transferirDinero.
+         */
+        JOptionPane.showMessageDialog(null,
+                String.format("Saldo actual de ambas cuentas:\nCuenta 1: %.2f\nCuenta 2: %.2f",
+                        cuenta2.getSaldoCuenta(),
+                        cuenta3.getSaldoCuenta()));
+
+        //Esta parte es estática. My bad.
+        banco.transferirDinero(cuenta2, cuenta3,
+                Banco.preguntarSaldo(String.format("¿Cuánto dinero desea transferir?\nSaldo actual de la cuenta: %.2f",
+                        cuenta2.getSaldoCuenta())));
+
+        JOptionPane.showMessageDialog(null,
+                String.format("Saldo actual de ambas cuentas:\nCuenta 1: %.2f\nCuenta 2: %.2f",
+                        cuenta2.getSaldoCuenta(),
+                        cuenta3.getSaldoCuenta()));
+
         /*
-         * Función para comparar saldos, sirve.
-         * System.out.println(banco.compararSaldos(cuenta1));
-         * 
-         * 
+         * Prueba de la función compararSaldos(). Le va a pedir un saldo para comparar.
+         */
+        banco.compararSaldos(cuenta1);
+
+        /*
+         * Prueba de las funciones de Cuenta Bancaria
          */
 
-        System.out.println(String.format("Saldo actual de ambas cuentas:\n %.2f\n %.2f", cuenta2.getSaldoCuenta(),
-                cuenta3.getSaldoCuenta()));
-        banco.transferirDinero(cuenta2, cuenta3, banco.preguntarSaldo());
-        System.out.println(String.format("Saldo actual de ambas cuentas:\n %.2f\n %.2f", cuenta2.getSaldoCuenta(),
-                cuenta3.getSaldoCuenta()));
+        cuentaPrincipal.imprimirAtributosEnPantalla(cuenta1);
 
+        cuentaPrincipal.consultarSaldo(cuenta2);
+
+        cuentaPrincipal.aniadirSaldo(cuenta3, Banco.preguntarSaldo("Saldo que desea transferir:"));
+
+        // Este método lo hice distinto, use this.getSaldoCuenta para así evitar ponerlo
+        // como parámetro y evitar usar el constructor vacio.
+        cuenta2.sacarSaldo(Banco.preguntarSaldo("Saldo que desea sacar: "));
     }
-
 }
