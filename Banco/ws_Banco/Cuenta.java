@@ -18,7 +18,7 @@ public class Cuenta {
         this.nombresTitular = nombresTitular;
         this.apellidosTitular = apellidosTitular;
         this.numeroCuentaBanco = numeroCuentaBanco;
-        this.tipoDeCuenta = ""+CategoriaCuenta.SALDO;
+        this.tipoDeCuenta = ""+ CategoriaCuenta.SALDO;
         this.saldoCuenta = saldoCuenta;
     }
 
