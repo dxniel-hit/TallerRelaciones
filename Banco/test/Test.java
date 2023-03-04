@@ -26,7 +26,7 @@ public class Test {
                  * Prueba de la función transferirDinero.
                  */
                 JOptionPane.showMessageDialog(null,
-                                String.format("Saldo actual de ambas cuentas:\nCuenta 1: %.2f $\nCuenta 2: %.2f $",
+                                String.format("Inicio de la transferencia\nSaldo actual de ambas cuentas:\nCuenta 1: %.2f $\nCuenta 2: %.2f $",
                                                 cuenta2.getSaldoCuenta(),
                                                 cuenta3.getSaldoCuenta()));
 
@@ -37,14 +37,14 @@ public class Test {
                                                 cuenta2.getSaldoCuenta())));
 
                 JOptionPane.showMessageDialog(null,
-                                String.format("Saldo actual de ambas cuentas:\nCuenta 1: %.2f\nCuenta 2: %.2f",
+                                String.format("Resultado de la transferencia\nSaldo actual de ambas cuentas:\nCuenta 1: %.2f\nCuenta 2: %.2f",
                                                 cuenta2.getSaldoCuenta(),
                                                 cuenta3.getSaldoCuenta()));
 
                 /*
                  * Prueba de la función compararSaldos(). Le va a pedir un saldo para comparar.
                  */
-                banco.compararSaldos(cuenta1);
+                JOptionPane.showMessageDialog(null,banco.compararSaldos(cuenta1));
 
                 /*
                  * Prueba de las funciones de Cuenta Bancaria
