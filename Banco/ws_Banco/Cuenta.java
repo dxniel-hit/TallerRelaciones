@@ -19,7 +19,7 @@ public class Cuenta {
         this.apellidosTitular = apellidosTitular;
         this.numeroCuentaBanco = numeroCuentaBanco;
         this.tipoDeCuenta = ""+ CategoriaCuenta.SALDO;
-        this.saldoCuenta = saldoCuenta;
+        this.saldoCuenta = 0.0;
     }
 
     public String getNombresTitular() {
