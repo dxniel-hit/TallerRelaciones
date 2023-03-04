@@ -4,9 +4,9 @@ import java.util.*;
 
 import javax.swing.JOptionPane;
 
-import Banco.CuentaBancaria.Banco;
-import Banco.CuentaBancaria.CategoriaCuenta;
-import Banco.CuentaBancaria.Cuenta;
+import Banco.ws_Banco.Banco;
+import Banco.ws_Banco.CategoriaCuenta;
+import Banco.ws_Banco.Cuenta;
 
 public class Test {
 
