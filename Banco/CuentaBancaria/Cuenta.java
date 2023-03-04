@@ -61,6 +61,13 @@ public class Cuenta {
         this.saldoCuenta = saldoCuenta;
     }
 
+    @Override
+    public String toString() {
+        return "Cuenta [nombresTitular=" + nombresTitular + ", apellidosTitular=" + apellidosTitular
+                + ", numeroCuentaBanco=" + numeroCuentaBanco + ", tipoDeCuenta=" + tipoDeCuenta + ", saldoCuenta="
+                + saldoCuenta + "]";
+    }
+
     /**
      * Imprime los detalles de la cuenta bancaria en pantalla
      * 
@@ -70,15 +77,15 @@ public class Cuenta {
      * @param tipoDeCuenta
      * @param saldoCuenta
      */
-    public void imprimirAtributosEnPantalla(Cuenta cuenta) {
-        JOptionPane.showMessageDialog(null, "Detalles de la cuenta: \n" + cuenta.toString());
+    public void imprimirAtributosEnPantalla() {
+        JOptionPane.showMessageDialog(null, "Detalles de la cuenta: \n" + this.toString());
     }
 
     /**
      * Consulta el saldo de una cuenta.
      */
-    public void consultarSaldo(Cuenta cuenta) {
-        JOptionPane.showMessageDialog(null, String.format("El saldo de su cuenta es: %f", cuenta.getSaldoCuenta()));
+    public void consultarSaldo() {
+        JOptionPane.showMessageDialog(null, String.format("El saldo de su cuenta es: %.2f", this.getSaldoCuenta()));
     }
 
     /**
@@ -86,8 +93,16 @@ public class Cuenta {
      * 
      * @param saldoAniadir
      */
-    public void aniadirSaldo(Cuenta cuentaA, Double saldoAniadir) {
-        cuentaA.setSaldoCuenta(cuentaA.getSaldoCuenta()+saldoAniadir);
+    public void aniadirSaldo() {
+        Double saldoAniadir = Banco.preguntarSaldo(
+                String.format("Saldo que desea añadir a su cuenta: \n Saldo actual: %.2f", this.getSaldoCuenta()));
+        if (comprobarSaldo(saldoAniadir)) {
+            JOptionPane.showMessageDialog(null, String.format("Saldo añadido sin éxito"));
+        } else {
+            this.setSaldoCuenta(this.getSaldoCuenta() + saldoAniadir);
+            JOptionPane.showMessageDialog(null,
+                    String.format("Saldo añadido con éxito.\n Su saldo actual es: %.2f", this.getSaldoCuenta()));
+        }
     }
 
     /**
@@ -96,13 +111,25 @@ public class Cuenta {
      * 
      * @param saldoSacado
      */
-    public void sacarSaldo(Double saldoSacado) {
-        if (saldoSacado > this.getSaldoCuenta())
+    public void sacarSaldo() {
+        Double saldoSacado = Banco.preguntarSaldo(
+                String.format("Saldo actual: %.2f \nSaldo que desea sacar a su cuenta:", this.getSaldoCuenta()));
+        if (comprobarSaldo(saldoSacado)) {
+            JOptionPane.showMessageDialog(null, "No se pudo hacer la transferencia");
+        } else if (saldoSacado > this.getSaldoCuenta()) {
             JOptionPane.showMessageDialog(null, "Error: No puede sacar más saldo del que tiene disponible.");
-        else {
+        } else {
             setSaldoCuenta(saldoCuenta - saldoSacado);
-            JOptionPane.showMessageDialog(null, "Saldo retirado con éxito.");
+            JOptionPane.showMessageDialog(null, String
+                    .format("Saldo retirado con éxito.\nEl saldo actual de su cuenta es: %.2f", this.getSaldoCuenta()));
         }
+    }
+
+    public static boolean comprobarSaldo(Double saldo) {
+        if (saldo.isNaN() || saldo == 0 || saldo < 0) {
+            return true;
+        }
+        return false;
     }
 
     /*
