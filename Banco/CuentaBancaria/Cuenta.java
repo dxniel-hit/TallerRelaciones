@@ -18,6 +18,7 @@ public class Cuenta {
         this.nombresTitular = nombresTitular;
         this.apellidosTitular = apellidosTitular;
         this.numeroCuentaBanco = numeroCuentaBanco;
+        this.tipoDeCuenta = ""+CategoriaCuenta.SALDO;
         this.saldoCuenta = saldoCuenta;
     }
 
@@ -63,9 +64,9 @@ public class Cuenta {
 
     @Override
     public String toString() {
-        return "Cuenta [nombresTitular=" + nombresTitular + ", apellidosTitular=" + apellidosTitular
+        return "nombresTitular=" + nombresTitular + ", apellidosTitular=" + apellidosTitular
                 + ", numeroCuentaBanco=" + numeroCuentaBanco + ", tipoDeCuenta=" + tipoDeCuenta + ", saldoCuenta="
-                + saldoCuenta + "]";
+                + saldoCuenta;
     }
 
     /**
