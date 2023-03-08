@@ -44,12 +44,12 @@ public class Test {
                 /*
                  * Prueba de la función compararSaldos(). Le va a pedir un saldo para comparar.
                  */
-                JOptionPane.showMessageDialog(null,banco.compararSaldos(cuenta1));
+                JOptionPane.showMessageDialog(null, banco.compararSaldos(cuenta1));
 
                 /*
                  * Prueba de las funciones de Cuenta Bancaria
-                 * Estos métodos los hice distintos, use this para así evitar ponerlo
-                 * como parámetro y evitar usar el constructor vacio.
+                 * Estos métodos los hice distintos, use this para así evitar crear la instancia
+                 * de Banco como parámetro y evitar usar el constructor vacio.
                  */
 
                 cuenta1.imprimirAtributosEnPantalla();
@@ -57,7 +57,7 @@ public class Test {
                 cuenta3.consultarSaldo();
 
                 cuenta3.aniadirSaldo();
-                                
+
                 cuenta2.sacarSaldo();
         }
 }

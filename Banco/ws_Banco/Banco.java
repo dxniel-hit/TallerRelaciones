@@ -8,6 +8,7 @@ public class Banco {
 
     private String nombre;
     private List<Cuenta> listaCuentas = new ArrayList<>();
+    private List<Cliente> listaClientes = new ArrayList<>();
 
     public Banco() {
     }
@@ -98,7 +99,7 @@ public class Banco {
 
         Double dineroDestino = cuentaDestino.getSaldoCuenta();
         Double dineroOrigen = cuentaDestino.getSaldoCuenta();
-        
+
         if (dineroOrigen >= cantidadTransferida) {
             cuentaOrigen.setSaldoCuenta(dineroOrigen - cantidadTransferida);
             cuentaDestino.setSaldoCuenta(dineroDestino + cantidadTransferida);
