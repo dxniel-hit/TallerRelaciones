@@ -1,25 +1,43 @@
 package Banco.ws_Banco;
 
 import javax.swing.JOptionPane;
+import java.util.*;
 
 public class Cuenta {
 
     private String nombresTitular;
     private String apellidosTitular;
     private String numeroCuentaBanco;
-    private String tipoDeCuenta;
+    private CategoriaCuenta tipoDeCuenta;
     private Double saldoCuenta;
+    private Cliente cuentaTitular;
+    private Banco bancoAsociado;
+    private List<Beneficiario> listaBeneficiarios = new ArrayList<Beneficiario>();
 
     public Cuenta() {
     }
 
-    public Cuenta(String nombresTitular, String apellidosTitular, String numeroCuentaBanco, CategoriaCuenta categoria,
-            Double saldoCuenta) {
+    public Cuenta(String nombresTitular, String apellidosTitular, String numeroCuentaBanco,
+            CategoriaCuenta tipoDeCuenta, Double saldoCuenta, Banco bancoAsociado) {
         this.nombresTitular = nombresTitular;
         this.apellidosTitular = apellidosTitular;
         this.numeroCuentaBanco = numeroCuentaBanco;
-        this.tipoDeCuenta = ""+ CategoriaCuenta.SALDO;
-        this.saldoCuenta = 0.0;
+        this.tipoDeCuenta = tipoDeCuenta;
+        this.saldoCuenta = saldoCuenta;
+        this.bancoAsociado = bancoAsociado;
+    }
+
+    public Cuenta(String nombresTitular, String apellidosTitular, String numeroCuentaBanco,
+            CategoriaCuenta tipoDeCuenta, Double saldoCuenta, Cliente cuentaTitular, Banco bancoAsociado,
+            List<Beneficiario> listaBeneficiarios) {
+        this.nombresTitular = nombresTitular;
+        this.apellidosTitular = apellidosTitular;
+        this.numeroCuentaBanco = numeroCuentaBanco;
+        this.tipoDeCuenta = tipoDeCuenta;
+        this.saldoCuenta = saldoCuenta;
+        this.cuentaTitular = cuentaTitular;
+        this.bancoAsociado = bancoAsociado;
+        this.listaBeneficiarios = listaBeneficiarios;
     }
 
     public String getNombresTitular() {
@@ -46,11 +64,11 @@ public class Cuenta {
         this.numeroCuentaBanco = numeroCuentaBanco;
     }
 
-    public String getTipoDeCuenta() {
+    public CategoriaCuenta getTipoDeCuenta() {
         return tipoDeCuenta;
     }
 
-    public void setTipoDeCuenta(String tipoDeCuenta) {
+    public void setTipoDeCuenta(CategoriaCuenta tipoDeCuenta) {
         this.tipoDeCuenta = tipoDeCuenta;
     }
 
@@ -60,6 +78,14 @@ public class Cuenta {
 
     public void setSaldoCuenta(Double saldoCuenta) {
         this.saldoCuenta = saldoCuenta;
+    }
+
+    public Cliente getCuentaTitular() {
+        return cuentaTitular;
+    }
+
+    public void setCuentaTitular(Cliente cuentaTitular) {
+        this.cuentaTitular = cuentaTitular;
     }
 
     @Override
@@ -94,15 +120,17 @@ public class Cuenta {
      * 
      * @param saldoAniadir
      */
-    public void aniadirSaldo() {
+    public void depositarDinero(Banco bancoAsociado) {
+        Cuenta cuentaBanco = bancoAsociado.getCuentaBanco();
         Double saldoAniadir = Banco.preguntarSaldo(
-                String.format("Saldo que desea añadir a su cuenta: \n Saldo actual: %.2f", this.getSaldoCuenta()));
+                String.format("Saldo que desea depositar: \n Saldo actual: %.2f", this.getSaldoCuenta()));
         if (comprobarSaldo(saldoAniadir)) {
-            JOptionPane.showMessageDialog(null, String.format("Saldo añadido sin éxito"));
+            JOptionPane.showMessageDialog(null, String.format("Saldo depositado sin éxito"));
         } else {
-            this.setSaldoCuenta(this.getSaldoCuenta() + saldoAniadir);
+            this.setSaldoCuenta(this.getSaldoCuenta() - saldoAniadir);
+            cuentaBanco.setSaldoCuenta(cuentaBanco.getSaldoCuenta() + saldoAniadir);
             JOptionPane.showMessageDialog(null,
-                    String.format("Saldo añadido con éxito.\n Su saldo actual es: %.2f", this.getSaldoCuenta()));
+                    String.format("Saldo depositado con éxito.\n Su saldo actual es: %.2f", this.getSaldoCuenta()));
         }
     }
 
@@ -112,7 +140,7 @@ public class Cuenta {
      * 
      * @param saldoSacado
      */
-    public void sacarSaldo() {
+    public void retirarDinero() {
         Double saldoSacado = Banco.preguntarSaldo(
                 String.format("Saldo actual: %.2f \nSaldo que desea sacar a su cuenta:", this.getSaldoCuenta()));
         if (comprobarSaldo(saldoSacado)) {

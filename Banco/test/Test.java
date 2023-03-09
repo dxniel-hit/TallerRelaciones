@@ -14,9 +14,9 @@ public class Test {
 
                 // Inicializo algunas variables para probar las funciones. Puede cambiar los
                 // saldos si desea.
-                Cuenta cuenta1 = new Cuenta("Daniel", "Correa", "1", CategoriaCuenta.AHORRO, 50000.0);
-                Cuenta cuenta2 = new Cuenta("Daniel", "Correa", "2", CategoriaCuenta.SALDO, 55000.0);
-                Cuenta cuenta3 = new Cuenta("Daniel", "Correa", "3", CategoriaCuenta.SALDO, 60000.0);
+                Cuenta cuenta1 = new Cuenta("Daniel", "Correa", "1", CategoriaCuenta.AHORRO, 50000.0, null);
+                Cuenta cuenta2 = new Cuenta("Daniel", "Correa", "2", CategoriaCuenta.SALDO, 55000.0, null);
+                Cuenta cuenta3 = new Cuenta("Daniel", "Correa", "3", CategoriaCuenta.SALDO, 60000.0, null);
 
                 ArrayList<Cuenta> listaCuentas = new ArrayList<Cuenta>(Arrays.asList(cuenta1, cuenta2, cuenta3));
 
@@ -30,21 +30,12 @@ public class Test {
                                                 cuenta2.getSaldoCuenta(),
                                                 cuenta3.getSaldoCuenta()));
 
-                // Esta parte es estática. My bad.
-                banco.transferirDinero(cuenta2, cuenta3,
-                                Banco.preguntarSaldo(String.format(
-                                                "¿Cuánto dinero desea transferir?\nSaldo actual de la cuenta: %.2f",
-                                                cuenta2.getSaldoCuenta())));
+                banco.transferirDineroOtraCuenta(cuenta2, cuenta3, Banco.preguntarSaldo("Saldo que desea transferir"));
 
                 JOptionPane.showMessageDialog(null,
                                 String.format("Resultado de la transferencia\nSaldo actual de ambas cuentas:\nCuenta 1: %.2f\nCuenta 2: %.2f",
                                                 cuenta2.getSaldoCuenta(),
                                                 cuenta3.getSaldoCuenta()));
-
-                /*
-                 * Prueba de la función compararSaldos(). Le va a pedir un saldo para comparar.
-                 */
-                JOptionPane.showMessageDialog(null, banco.compararSaldos(cuenta1));
 
                 /*
                  * Prueba de las funciones de Cuenta Bancaria
@@ -56,8 +47,8 @@ public class Test {
 
                 cuenta3.consultarSaldo();
 
-                cuenta3.aniadirSaldo();
+                cuenta3.depositarDinero(banco);
 
-                cuenta2.sacarSaldo();
+                cuenta2.retirarDinero();
         }
 }

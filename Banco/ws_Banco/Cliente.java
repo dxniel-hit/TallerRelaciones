@@ -5,11 +5,13 @@ import java.util.List;
 
 public class Cliente {
 
+
     private String nombre;
     private String apellido;
     private String documento;
     private List<Cuenta> listaCuentas = new ArrayList<Cuenta>();
     private Banco bancoAsociado;
+    
 
     public Cliente() {
     }

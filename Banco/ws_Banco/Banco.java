@@ -1,5 +1,6 @@
 package Banco.ws_Banco;
 
+import java.text.Format;
 import java.util.*;
 
 import javax.swing.JOptionPane;
@@ -7,8 +8,10 @@ import javax.swing.JOptionPane;
 public class Banco {
 
     private String nombre;
+    private Cuenta cuentaBanco;
     private List<Cuenta> listaCuentas = new ArrayList<>();
     private List<Cliente> listaClientes = new ArrayList<>();
+    private List<Beneficiario> listaBeneficiarios = new ArrayList<Beneficiario>();
 
     public Banco() {
     }
@@ -32,6 +35,14 @@ public class Banco {
 
     public void setListaCuentas(List<Cuenta> listaCuentas) {
         this.listaCuentas = listaCuentas;
+    }
+
+    public Cuenta getCuentaBanco() {
+        return cuentaBanco;
+    }
+
+    public void setCuentaBanco(Cuenta capitalBanco) {
+        this.cuentaBanco = capitalBanco;
     }
 
     @Override
@@ -70,21 +81,26 @@ public class Banco {
         return "Banco [nombre=" + nombre + ", listaCuentas=" + listaCuentas + "]";
     }
 
+    public void retirarDinero(Cuenta cuenta, Double cantidadRetiro) {
+
+        Double dineroCuenta = cuenta.getSaldoCuenta();
+
+        if (dineroCuenta > cantidadRetiro) {
+            cuenta.setSaldoCuenta(dineroCuenta - cantidadRetiro);
+            JOptionPane.showMessageDialog(null, String.format("Se retiraron %.2f desde la cuenta %s",
+                    cantidadRetiro, cuenta.getNumeroCuentaBanco()));
+        } else {
+            JOptionPane.showMessageDialog(null, "No se pudo hacer el retiro de dinero");
+        }
+    }
+
     /**
-     * Función para comparar saldos.
      * 
-     * @param cuentaAComparar
-     * @return
+     * @param cuenta
      */
-    public boolean compararSaldos(Cuenta cuentaAComparar) {
+    public void consultarSaldo(Cuenta cuenta) {
 
-        // Pregunta por un saldo a comparar dado por el usuario.
-        Cuenta cuentaPrimaria = new Cuenta("Daniel", "Correa", "0000", CategoriaCuenta.SALDO,
-                preguntarSaldo("Saldo que desea comparar: "));
-
-        if (cuentaPrimaria.getSaldoCuenta() < cuentaAComparar.getSaldoCuenta())
-            return false;
-        return true;
+        JOptionPane.showMessageDialog(null, String.format("El saldo de la cuenta es: %.2f", cuenta.getSaldoCuenta()));
     }
 
     /**
@@ -95,7 +111,7 @@ public class Banco {
      * @param cuentaOrigen
      * @param cantidadTransferida
      */
-    public void transferirDinero(Cuenta cuentaDestino, Cuenta cuentaOrigen, Double cantidadTransferida) {
+    public void transferirDineroOtraCuenta(Cuenta cuentaDestino, Cuenta cuentaOrigen, Double cantidadTransferida) {
 
         Double dineroDestino = cuentaDestino.getSaldoCuenta();
         Double dineroOrigen = cuentaDestino.getSaldoCuenta();
@@ -110,8 +126,22 @@ public class Banco {
         }
     }
 
+    public void depositarDinero(Cuenta cuenta, Double dineroDeposito) {
+
+        Double saldoCuenta = cuenta.getSaldoCuenta();
+        Double saldoBanco = cuentaBanco.getSaldoCuenta();
+        if (dineroDeposito > saldoCuenta) {
+            JOptionPane.showMessageDialog(null, "No se pudo hacer el deposito");
+        }
+        else {
+            cuentaBanco.setSaldoCuenta(dineroDeposito + saldoBanco);
+            cuenta.setSaldoCuenta(saldoCuenta - dineroDeposito);
+        }
+    }
+
     // Función para hacer que el código no se vea tan feo.
     public static Double preguntarSaldo(String mensaje) {
         return Double.parseDouble(JOptionPane.showInputDialog(null, mensaje));
     }
+
 }
